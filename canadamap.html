@@ -78,6 +78,21 @@
                     "content": "<b>Name:</b> {PRNAME}<br><b>Area:</b> {Shape_STAr} m<sup>2</sup>"
                 }
 
+                function createFillSymbol(value, color) {
+                    return {
+                    "value": value,
+                    "symbol": {
+                        "color": color,
+                        "type": "simple-fill",
+                        "style": "solid",
+                        "outline": {
+                        "style": "none"
+                        }
+                    },
+                    "label": value
+                    };
+                }
+
                 const provinceRenderer = {
                     type: "unique-value",
                     field: "PRENAME"
@@ -90,7 +105,7 @@
                     renderer: provinceRenderer
                 });
 
-                map.add(provinceLayer);
+                map.add(provinceLayer, 0);
                 
                 // //Create point #1 - Brokeback Mountain
                 // const point1 = { 
