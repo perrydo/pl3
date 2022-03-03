@@ -95,7 +95,22 @@
 
                 const provinceRenderer = {
                     type: "unique-value",
-                    field: "PRENAME"
+                    field: "PRENAME",
+                    uniqueValueInfos: [
+                        createFillSymbol("Newfoundland and Labrador", "#8dd3c7"),
+                        createFillSymbol("Prince Edward Island", "#ffffb3"),
+                        createFillSymbol("Nova Scotia", "#bebada"),
+                        createFillSymbol("New Brunswick", "#fb8072"),
+                        createFillSymbol("Quebec", "#80b1d3"),
+                        createFillSymbol("Ontario", "#fdb462"),
+                        createFillSymbol("Manitoba", "#b3de69"),
+                        createFillSymbol("Saskatchewan", "#fccde5"),
+                        createFillSymbol("Alberta", "#d9d9d9"),
+                        createFillSymbol("British Columbia", "#bc80bd"),
+                        createFillSymbol("Yukon", "#ccebc5"),
+                        createFillSymbol("Northwest Territories", "#ffed6f"),
+                        createFillSymbol("Nunavut", "#b2df8a")
+                    ]
                 };
 
                 const provinceLayer = new FeatureLayer({
