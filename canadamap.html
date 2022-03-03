@@ -1,0 +1,280 @@
+<!DOCTYPE html> 
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <title>Canada Map</title>
+
+        <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #intro {
+            position: relative;
+            bottom: 35%;
+            left: 30%;
+            background-color: rgba(255, 148, 255, 0.767);
+            border-radius: 20px;
+            padding: 5px;
+            max-width: 320px;
+        }
+
+        @font-face {
+            font-family: 'IM Fell DW Pica';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/imfelldwpica/v12/2sDGZGRQotv9nbn2qSl0TxXVYNwNYwnV.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        @font-face {
+            font-family: 'IM Fell DW Pica';
+            font-style: italic;
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/imfelldwpica/v12/2sDEZGRQotv9nbn2qSl0TxXVYNwNZjnXlis.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        p {
+            color: #000000;
+            text-indent: 40px;
+            font-family: 'IM Fell DW Pica', serif;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        </style>
+
+        <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
+        <script src="https://js.arcgis.com/4.22/"></script>
+
+        <script>
+            require(["esri/config","esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/layers/FeatureLayer"], 
+            function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+                
+                esriConfig.apiKey = "AAPKb180133578e44f84ad5aa1e4669658aa-Whd7eoPgDHSo4lIpKhFW2NyUesGAqtv5WskUCSnllbfBW8sJmTYLnP9iLVoxu6G";
+
+                const map = new Map({
+                    basemap: "arcgis-topographic" // Basemap layer service
+                });
+
+                const view = new MapView({
+                    map: map, 
+                    center: [-94.40813176369518, 35.443265895161716], // Longitude, latitude
+                    zoom: 5, // Zoom level
+                    container: "viewDiv" // Div element
+                });
+
+                const graphicsLayer = new GraphicsLayer();
+                map.add(graphicsLayer);
+
+                const parksLayer = new FeatureLayer({
+                    url: "https://luna.flemingcollege.ca/arcgis/rest/services/bigbrains60/CanadaPeD/MapServer/0"
+                });
+
+                map.add(parksLayer, 0);
+                
+                // //Create point #1 - Brokeback Mountain
+                // const point1 = { 
+                //     type: "point",
+                //     longitude: -108.37489175514848,
+                //     latitude: 43.06698909869485
+                // };
+                // const simpleMarkerSymbol1 = {
+                //     type: "simple-marker",
+                //     color: [30, 144, 255],  // Dodger
+                //     outline: {
+                //         color: [255, 255, 255], // White
+                //         width: 1
+                //     }
+                // };
+                // const popupTemplate1 = {
+                //     title: "{Name}",
+                //     content: "{Description}"
+                // }
+                // const attributes1 = {
+                //     Name: "Brokeback Mountain (2005)",
+                //     Description: "Starring Heath Ledger, Jake Gyllenhaal, Anne Hathaway, and Michelle Williams, 'Brokeback Mountain' depicts the complex romantic relationship between two American cowboys, Ennis Del Mar and Jack Twist, in the American West from 1963 to 1983. While Brokeback Mountain is a fictional location, much of the movie is  set in Riverton, a real town in the Big Horn Mountains of central Wyoming."
+                // }
+                // const pointGraphic1 = new Graphic({
+                //     geometry: point1,
+                //     symbol: simpleMarkerSymbol1,
+                //     attributes: attributes1,
+                //     popupTemplate: popupTemplate1
+                // });
+                // graphicsLayer.add(pointGraphic1);
+
+                // // Create point #2 - Love, Simon
+                // const point2 = { 
+                //     type: "point",
+                //     longitude: -84.37792567343384,
+                //     latitude: 33.83303752191236
+                // };
+                // const simpleMarkerSymbol2 = {
+                //     type: "simple-marker",
+                //     color: [220, 20, 60],  // Crimson
+                //     outline: {
+                //         color: [255, 255, 255], // White
+                //         width: 1
+                //     }
+                // };
+                // const popupTemplate2 = {
+                //     title: "{Name}",
+                //     content: "{Description}"
+                // }
+                // const attributes2 = {
+                //     Name: "Love, Simon (2018)",
+                //     Description: "Starring  Nick Robinson, Katherine Langford, Alexandra Shipp, Jorge Lendeborg Jr., Keiynan Lonsdale, Josh Duhamel, and Jennifer Garner, 'Love, Simon' centers on Simon Spier, a closeted gay high school boy who struggles to balance his friends, his family, and the blackmailer threatening to out him to the entire school, while simultaneously attempting to discover the identity of the anonymous classmate with whom he has fallen in love online. Similar to the novel 'Simon vs. the Homo Sapiens Agenda' by Becky Albertalli which the movie is based on, the movie is set in Atlanta, Georgia. Atlanta International School is featured in many scenes as Simon's school."
+                // }
+                // const pointGraphic2 = new Graphic({
+                //     geometry: point2,
+                //     symbol: simpleMarkerSymbol2,
+                //     attributes: attributes2,
+                //     popupTemplate: popupTemplate2
+                // });
+                
+                // graphicsLayer.add(pointGraphic2);
+
+                // // Create point #3 - Moonlight
+                // const point3 = { 
+                //     type: "point",
+                //     longitude: -80.18422251779997,
+                //     latitude: 25.84162773927329
+                // };
+                // const simpleMarkerSymbol3 = {
+                //     type: "simple-marker",
+                //     color: [148, 0, 211],  // Dark violet
+                //     outline: {
+                //         color: [255, 255, 255], // White
+                //         width: 1
+                //     }
+                // };
+                // const popupTemplate3 = {
+                //     title: "{Name}",
+                //     content: "{Description}"
+                // }
+                // const attributes3 = {
+                //     Name: "Moonlight (2016)",
+                //     Description: "Starring Trevante Rhodes, André Holland, Janelle Monáe, Ashton Sanders, Jharrel Jerome, Naomie Harris, and Mahershala Ali, 'Moonlight' depicts the life of Chiron, a young black gay man growing up in Miami. Jimmy's Eastside Diner is predominantly featured in the third act of the movie, where Chiron reunites with Kevin, his lifelong romantic interest."
+                // }
+                // const pointGraphic3 = new Graphic({
+                //     geometry: point3,
+                //     symbol: simpleMarkerSymbol3,
+                //     attributes: attributes3,
+                //     popupTemplate: popupTemplate3
+                // });
+                
+                // graphicsLayer.add(pointGraphic3);
+
+                // // Create point #4 - The Kids Are Alright
+                // const point4 = { 
+                //     type: "point",
+                //     longitude: -118.20949212978049,
+                //     latitude: 34.12746078053712
+                // };
+                // const simpleMarkerSymbol4 = {
+                //     type: "simple-marker",
+                //     color: [255, 255, 0],  // Yellow
+                //     outline: {
+                //         color: [255, 255, 255], // White
+                //         width: 1
+                //     }
+                // };
+                // const popupTemplate4 = {
+                //     title: "{Name}",
+                //     content: "{Description}"
+                // }
+                // const attributes4 = {
+                //     Name: "The Kids Are Alright (2010)",
+                //     Description: "Starring Annette Bening, Julianne Moore, Mark Ruffalo, Mia Wasikowska and Josh Hutcherson, 'The Kids Are Alright' tells the story of Joni and Laser, two children of a lesbian couple conceived by artificial insemination, bring their biological father into their non-traditional family life. Filmed entirely in the city of Los Angeles, the movie features Occidental College near the end, when the family sends Joni off to college."
+                // }
+                // const pointGraphic4 = new Graphic({
+                //     geometry: point4,
+                //     symbol: simpleMarkerSymbol4,
+                //     attributes: attributes4,
+                //     popupTemplate: popupTemplate4
+                // });
+                
+                // graphicsLayer.add(pointGraphic4);
+                
+                // // Create point #5 - To Wong Foo, Thanks for Everything! Julie Newmar 
+                // const point5 = { 
+                //     type: "point",
+                //     longitude: -73.98923817694003,
+                //     latitude: 40.73191863940208
+                // };
+                // const simpleMarkerSymbol5 = {
+                //     type: "simple-marker",
+                //     color: [255, 140, 0],  // Dark orange
+                //     outline: {
+                //         color: [255, 255, 255], // White
+                //         width: 1
+                //     }
+                // };
+                // const popupTemplate5 = {
+                //     title: "{Name}",
+                //     content: "{Description}"
+                // }
+                // const attributes5 = {
+                //     Name: "To Wong Foo, Thanks for Everything! Julie Newmar (1995)",
+                //     Description: "Starring Wesley Snipes, Patrick Swayze, and John Leguizamo as three New York City drag queens who embark on a road trip, 'To Wong Foo, Thanks for Everything! Julie Newmar' begins at the historic Webster Hall, New York City. The location holds the fictional New York City's 'Drag Queen of the Year' contest, where Noxeema Jackson and Vida Boheme ties for winning a trip to Hollywood to take part in the even bigger 'Miss Drag Queen of America Pageant'."
+                // }
+                // const pointGraphic5 = new Graphic({
+                //     geometry: point5,
+                //     symbol: simpleMarkerSymbol5,
+                //     attributes: attributes5,
+                //     popupTemplate: popupTemplate5
+                // });
+                
+                // graphicsLayer.add(pointGraphic5);
+                                
+                // // Create point #6 - Happiest Season
+                // const point6 = { 
+                //     type: "point",
+                //     longitude: -79.96010310393265,
+                //     latitude: 40.47098341552697
+                // };
+                // const simpleMarkerSymbol6 = {
+                //     type: "simple-marker",
+                //     color: [34, 139, 34],  // Forest green
+                //     outline: {
+                //         color: [255, 255, 255], // White
+                //         width: 1
+                //     }
+                // };
+                // const popupTemplate6 = {
+                //     title: "{Name}",
+                //     content: "{Description}"
+                // }
+                // const attributes6 = {
+                //     Name: "Happiest Season (2020)",
+                //     Description: "Starring Kristen Stewart, Mackenzie Davis, Alison Brie, Aubrey Plaza, Dan Levy, Mary Holland, Victor Garber, and Mary Steenburgen, 'Happiest Season' follows a woman who struggles to come out to her conservative parents while she and her girlfriend visit them during Christmas. The film is set in and around Pittsburgh, with The Vandal coffee shop in the Lawrenceville neighborhood featured near the beginning of the film."
+                // }
+                // const pointGraphic6 = new Graphic({
+                //     geometry: point6,
+                //     symbol: simpleMarkerSymbol6,
+                //     attributes: attributes6,
+                //     popupTemplate: popupTemplate6
+                // });
+                
+                // graphicsLayer.add(pointGraphic6);
+      
+            });
+        </script>
+
+    </head>
+    <body>
+        <div id="viewDiv"></div>
+        <div id="intro"> 
+            <p>This map shows the filming locations/settings of six famous gay/lesbian movies: 'To Wong Foo, Thanks for Everything! Julie Newmar' (1995), 'Brokeback Mountain' (2005), 'The Kids Are Alright' (2010), 'Moonlight' (2016), 'Love, Simon' (2018) and 'Happiest Season' (2020). Each movie is set in a different location, and tells distinct stories of love and family. Happy Valentine's Day!</p> 
+        </div>
+    </body>
+</html>
