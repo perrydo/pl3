@@ -57,8 +57,8 @@
         <script src="https://js.arcgis.com/4.22/"></script>
 
         <script>
-            require(["esri/config","esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer", "esri/layers/FeatureLayer"], 
-            function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+            require(["esri/config","esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer"], 
+            function (esriConfig,Map, MapView, FeatureLayer) {
                 
                 esriConfig.apiKey = "AAPKb180133578e44f84ad5aa1e4669658aa-Whd7eoPgDHSo4lIpKhFW2NyUesGAqtv5WskUCSnllbfBW8sJmTYLnP9iLVoxu6G";
 
@@ -73,18 +73,21 @@
                     container: "viewDiv" // Div element
                 });
 
-                const graphicsLayer = new GraphicsLayer();
-                map.add(graphicsLayer);
-
                 const popupProvince = {
                     "title": "Province",
                     "content": "<b>Name:</b> {PRNAME}<br><b>Area:</b> {Shape_STAr} m<sup>2</sup>"
                 }
 
+                const provinceRenderer = {
+                    type: "unique-value",
+                    field: "PRENAME"
+                };
+
                 const provinceLayer = new FeatureLayer({
                     url: "https://luna.flemingcollege.ca/arcgis/rest/services/bigbrains60/CanadaPeD/MapServer/0",
                     outFields: ["PRNAME", "Shape_STAr"],
-                    popupTemplate: popupProvince
+                    popupTemplate: popupProvince,
+                    renderer: provinceRenderer
                 });
 
                 map.add(provinceLayer);
