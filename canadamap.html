@@ -68,7 +68,7 @@
 
                 const view = new MapView({
                     map: map, 
-                    center: [-97.84964891018112, 55.74810639398867], // Longitude, latitude
+                    center: [-94.20110809740652, 58.78902877064135], // Longitude, latitude
                     zoom: 4, // Zoom level
                     container: "viewDiv" // Div element
                 });
@@ -76,11 +76,18 @@
                 const graphicsLayer = new GraphicsLayer();
                 map.add(graphicsLayer);
 
-                const parksLayer = new FeatureLayer({
+                const popupProvince = {
+                    "title": "Province",
+                    "content": "<b>Name:</b> {PRNAME}"
+                }
+
+                const provinceLayer = new FeatureLayer({
                     url: "https://luna.flemingcollege.ca/arcgis/rest/services/bigbrains60/CanadaPeD/MapServer/0"
+                    outFields: ["PRNAME"]
+                    popupTemplate: popupProvince
                 });
 
-                map.add(parksLayer, 0);
+                map.add(provinceLayer, 0);
                 
                 // //Create point #1 - Brokeback Mountain
                 // const point1 = { 
@@ -273,8 +280,8 @@
     </head>
     <body>
         <div id="viewDiv"></div>
-        <div id="intro"> 
+        <!-- <div id="intro"> 
             <p>This map shows the filming locations/settings of six famous gay/lesbian movies: 'To Wong Foo, Thanks for Everything! Julie Newmar' (1995), 'Brokeback Mountain' (2005), 'The Kids Are Alright' (2010), 'Moonlight' (2016), 'Love, Simon' (2018) and 'Happiest Season' (2020). Each movie is set in a different location, and tells distinct stories of love and family. Happy Valentine's Day!</p> 
-        </div>
+        </div> -->
     </body>
 </html>
