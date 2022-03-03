@@ -78,12 +78,12 @@
 
                 const popupProvince = {
                     "title": "Province",
-                    "content": "<b>Name:</b> {PRNAME}"
+                    "content": "<b>Name:</b> {PRNAME}<br><b>Area:</b> {Shape_STAr} m 2.sup()"
                 }
 
                 const provinceLayer = new FeatureLayer({
                     url: "https://luna.flemingcollege.ca/arcgis/rest/services/bigbrains60/CanadaPeD/MapServer/0",
-                    outFields: ["PRNAME"],
+                    outFields: ["PRNAME", "Shape_STAr"],
                     popupTemplate: popupProvince
                 });
 
